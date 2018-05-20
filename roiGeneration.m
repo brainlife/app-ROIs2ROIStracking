@@ -18,7 +18,6 @@ end
 disp('running')
 config = loadjson('config.json');
 rois = str2num(config.rois);
-fsDir = fullfile(pwd,'parc_diffusion.nii.gz');
 refImg=fullfile(config.parcellation, 't1.nii.gz');
 smoothFlag = config.smoothflag;
 fsOrParc = config.inputparc;
