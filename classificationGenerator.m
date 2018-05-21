@@ -51,6 +51,21 @@ end
 
 savejson('', all_tracts, fullfile('tracts/tracts.json'));
 
+for i = 1 : length(fg_classified)
+    name = fg_classified(i).name;
+    num_fibers = length(fg_classified(i).fibers);
+    
+    fibercounts(i) = num_fibers;
+    tract_info{i,1} = name;
+    tract_info{i,2} = num_fibers;
+end
+
+T = cell2table(tract_info);
+T.Properties.VariableNames = {'Tracts', 'FiberCount'};
+
+writetable(T, 'output_fibercounts.txt');
+
+
 exit;
 end
 
