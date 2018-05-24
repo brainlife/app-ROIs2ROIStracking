@@ -24,7 +24,7 @@ end
 [mergedFG, classification]=bsc_mergeFGandClass(fgPath);
 fg_classified = bsc_makeFGsFromClassification(classification,mergedFG);
 
-save('output.mat','classification','fg_classified');
+save('output.mat','classification','fg_classified','-v7.3');
 
 tracts = fg2Array(fg_classified);
 
@@ -53,7 +53,7 @@ savejson('', all_tracts, fullfile('tracts/tracts.json'));
 
 for i = 1 : length(fg_classified)
     name = fg_classified(i).name;
-    num_fibers = length(fg_classified(i).fibers);
+    num_fibers = length(fg_classified(i).fg.fibers);
     
     fibercounts(i) = num_fibers;
     tract_info{i,1} = name;

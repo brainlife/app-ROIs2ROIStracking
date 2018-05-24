@@ -24,6 +24,7 @@ export BVALS=$dtiinit/`jq -r '.files.alignedDwBvals' $dtiinit/dt6.json`
 export BVECS=$dtiinit/`jq -r '.files.alignedDwBvecs' $dtiinit/dt6.json`
 fsurfer=`jq -r '.freesurfer' config.json`
 rois=`jq -r '.parcellation' config.json`
+roipair=`jq -r '.roipair' config.json`
 NUM=`jq -r '.num_fibers' config.json`
 MAXNUM=`jq -r '.max_num' config.json`
 STEPSIZE=`jq -r '.stepsize' config.json`
@@ -53,12 +54,12 @@ mrconvert mask_anat.nii.gz b0.mif
 mrconvert wm_anat.nii.gz $WMMK
 
 mkdir roi;
-cp $rois/*roi_*.nii.gz ./
-for ROI in *roi_*
+for ROI in ${roipair[*]}
 	do
+		cp $rois/roi_${ROI}.nii.gz ./
 		# add line to remove .nii.gz from name
-		mrconvert ${ROI} ${ROI%.nii*}.mif
-		mv ${ROI} ./roi/
+		mrconvert roi_${ROI}.nii.gz roi_${ROI}.mif
+		mv roi_${ROI}.nii.gz ./roi/
 	done
 	ret=$?	
 	if [ ! $ret -eq 0 ]; then
@@ -180,8 +181,13 @@ for (( i=0; i<=$nTracts; i+=2 ));
 ./classification/classificationGenerator
 
 ################# CLEANUP #######################################
+mkdir wmc
+mv ./tracts/ ./wmc/
+mv output_fibercounts.txt ./wmc/
+mv output.mat ./wmc/
+rm -rf ./roi/
 rm -rf *.mif*
 rm -rf grad.b
-rm -rf *response.txt*
+rm -rf *response*.txt
 rm -rf *.nii.gz
 
