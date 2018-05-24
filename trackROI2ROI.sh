@@ -23,7 +23,7 @@ export input_nii_gz=$dtiinit/`jq -r '.files.alignedDwRaw' $dtiinit/dt6.json`
 export BVALS=$dtiinit/`jq -r '.files.alignedDwBvals' $dtiinit/dt6.json`
 export BVECS=$dtiinit/`jq -r '.files.alignedDwBvecs' $dtiinit/dt6.json`
 fsurfer=`jq -r '.freesurfer' config.json`
-parc=`jq -r '.parcellation' config.json`
+rois=`jq -r '.parcellation' config.json`
 NUM=`jq -r '.num_fibers' config.json`
 MAXNUM=`jq -r '.max_num' config.json`
 STEPSIZE=`jq -r '.stepsize' config.json`
@@ -52,18 +52,14 @@ mrconvert $input_nii_gz dwi.mif
 mrconvert mask_anat.nii.gz b0.mif
 mrconvert wm_anat.nii.gz $WMMK
 
-if [ -d "roi" ]; then
-	echo "roi mif's already exists...skipping"
-else
-	mkdir roi
-	mv *.mat ./roi/
-	for ROI in *roi_*
-		do
-			# add line to remove .nii.gz from name
-			mrconvert ${ROI} ${ROI%.nii*}.mif
-
-			mv ${ROI} ./roi/
-		done
+mkdir roi;
+cp $rois/*roi_*.nii.gz ./
+for ROI in *roi_*
+	do
+		# add line to remove .nii.gz from name
+		mrconvert ${ROI} ${ROI%.nii*}.mif
+		mv ${ROI} ./roi/
+	done
 	ret=$?	
 	if [ ! $ret -eq 0 ]; then
 		exit $ret
