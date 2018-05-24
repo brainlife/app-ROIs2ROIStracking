@@ -64,7 +64,6 @@ for ROI in *roi_*
 	if [ ! $ret -eq 0 ]; then
 		exit $ret
 	fi
-fi
 
 ########### CREATE FILES FOR TRACKING ######
 ## create a t2-mask from b0
