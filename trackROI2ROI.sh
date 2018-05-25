@@ -174,6 +174,10 @@ for (( i=0; i<=$nTracts; i+=2 ));
 		rm -rf ${holder[*]}
 		## tract info
 		track_info track$((i/2+1)).tck > track_info$((i/2+1)).txt
+		if [[ $((i/2+1)) == 1 ]];then
+			mv track_info$((i/2+1)).txt track_info.txt
+			mv track$((i/2+1)).tck track.tck
+		fi
 	done
 
 
@@ -181,10 +185,6 @@ for (( i=0; i<=$nTracts; i+=2 ));
 ./classification/classificationGenerator
 
 ################# CLEANUP #######################################
-mkdir wmc
-mv ./tracts/ ./wmc/
-mv output_fibercounts.txt ./wmc/
-mv output.mat ./wmc/
 rm -rf ./roi/
 rm -rf *.mif*
 rm -rf grad.b
