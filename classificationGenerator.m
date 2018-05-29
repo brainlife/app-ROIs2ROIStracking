@@ -15,17 +15,36 @@ switch getenv('ENV')
         addpath(genpath('/usr/local/spm'))
 end
 
+% Set top directory
 topdir = pwd;
+
+% Load configuration file
+config = loadjson('config.json');
+
+% Set tck file path/s
 rois=dir('*.tck*');
+
+roiPair = str2num(config.roiPair);
 for ii = 1:length(rois); 
     fgPath{ii} = fullfile(topdir,rois(ii).name);
 end
 
+% Create classification structure
 [mergedFG, classification]=bsc_mergeFGandClass(fgPath);
-fg_classified = bsc_makeFGsFromClassification(classification,mergedFG);
 
+% Amend name of tract in classification structure
+for ii = round((1:length(roiPair))/2)
+    classification.names{ii} = strcat('ROI',num2str(roiPair((2*ii) - 1)),'_ROI',num2str(roiPair((2*ii))));
+end
+
+% Create fg_classified structure
+wbFG = mergedFG;
+fg_classified = bsc_makeFGsFromClassification(classification,wbFG,'acpc');
+
+% Save output
 save('output.mat','classification','fg_classified','-v7.3');
 
+% Create structure to generate colors for each tract
 tracts = fg2Array(fg_classified);
 
 mkdir('tracts');
@@ -49,8 +68,10 @@ for it = 1:length(tracts)
    clear tract
 end
 
+% Save json outputs
 savejson('', all_tracts, fullfile('tracts/tracts.json'));
 
+% Create and write output_fibercounts.txt file
 for i = 1 : length(fg_classified)
     name = fg_classified(i).name;
     num_fibers = length(fg_classified(i).fg.fibers);
