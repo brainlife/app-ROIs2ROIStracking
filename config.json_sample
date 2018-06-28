@@ -1,0 +1,12 @@
+{
+	"roiPair":	"23 95",
+	"maxlength":	200,
+	"minlength":	10,
+	"stepsize":	0.2,
+	"max_num":	1000000,
+	"num_fibers":	500000,
+	"dtiinit":	"<path to a folder containing dtiinit output>",
+	"freesurfer":	"<path to a folder containing freesurfer output>",
+	"parcellation":	"<path to a folder containing roi niftis, or leave as empty quotation marks (i.e. "") if not wanting to include a parcellation>",
+	"max_lmax": ""
+}
