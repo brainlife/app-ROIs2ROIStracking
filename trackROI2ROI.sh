@@ -30,6 +30,7 @@ MAXNUM=`jq -r '.max_num' config.json`
 STEPSIZE=`jq -r '.stepsize' config.json`
 MINLENGTH=`jq -r '.minlength' config.json`
 MAXLENGTH=`jq -r '.maxlength' config.json`
+NUM_REPETITIONS=`jq -r '.num_repetitions' config.json`
 WMMK=wm_mask.mif
 
 
@@ -154,7 +155,7 @@ range=` expr ${#ROI[@]}`
 nTracts=` expr ${range} / 2`
 for (( i=0; i<=$nTracts; i+=2 ));
 	do
-		for i_track in 01 02 03 04 05 06 07 08 09 10
+		for i_track in $(seq $NUM_REPETITIONS)
 			do
 				echo ${i_track}
 				for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 ))
