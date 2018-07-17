@@ -7,12 +7,14 @@ switch getenv('ENV')
         addpath(genpath('/N/u/brlife/git/jsonlab'))
         addpath(genpath('/N/u/brlife/git/encode'))
         addpath(genpath('/N/u/brlife/git/spm'))
+        addpath(genpath('/N/u/brlife/git/wma'))
     case 'VM'
         disp('loading paths for Jetstream VM')
         addpath(genpath('/usr/local/vistasoft'))
         addpath(genpath('/usr/local/jsonlab'))
         addpath(genpath('/usr/local/encode'))
         addpath(genpath('/usr/local/spm'))
+        addpath(genpath('/usr/local/wma'))
 end
 
 % Set top directory
@@ -39,7 +41,7 @@ end
 
 % Create fg_classified structure
 wbFG = mergedFG;
-fg_classified = bsc_makeFGsFromClassification(classification,wbFG,'acpc');
+fg_classified = bsc_makeFGsFromClassification(classification,wbFG);
 
 % Save output
 save('output.mat','classification','fg_classified','-v7.3');
