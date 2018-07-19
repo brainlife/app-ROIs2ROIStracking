@@ -76,7 +76,7 @@ savejson('', all_tracts, fullfile('tracts/tracts.json'));
 % Create and write output_fibercounts.txt file
 for i = 1 : length(fg_classified)
     name = fg_classified(i).name;
-    num_fibers = length(fg_classified(i).fg.fibers);
+    num_fibers = length(fg_classified(i).fibers);
     
     fibercounts(i) = num_fibers;
     tract_info{i,1} = name;
