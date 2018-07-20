@@ -14,14 +14,20 @@
 ## 2. grads.b 
 ## 3. mask.mif 
 
+#make the script to fail if any of the command fails.
+set -e
+
+#show commands executed (mainly for debugging)
+set -x
+
 ########### DEFINE PATHS #####################
 export PATH=$PATH:/usr/lib/mrtrix/bin
 
 BGRAD="grad.b"
 dtiinit=`jq -r '.dtiinit' config.json`
-export input_nii_gz=$dtiinit/`jq -r '.files.alignedDwRaw' $dtiinit/dt6.json`
-export BVALS=$dtiinit/`jq -r '.files.alignedDwBvals' $dtiinit/dt6.json`
-export BVECS=$dtiinit/`jq -r '.files.alignedDwBvecs' $dtiinit/dt6.json`
+input_nii_gz=$dtiinit/`jq -r '.files.alignedDwRaw' $dtiinit/dt6.json`
+BVALS=$dtiinit/`jq -r '.files.alignedDwBvals' $dtiinit/dt6.json`
+BVECS=$dtiinit/`jq -r '.files.alignedDwBvecs' $dtiinit/dt6.json`
 fsurfer=`jq -r '.freesurfer' config.json`
 rois=`jq -r '.parcellation' config.json`
 roipair=`jq -r '.roiPair' config.json`
@@ -33,14 +39,23 @@ MAXLENGTH=`jq -r '.maxlength' config.json`
 NUM_REPETITIONS=`jq -r '.num_repetitions' config.json`
 WMMK=wm_mask.mif
 
-
-########### CREATE grad.b #####################
-if [ -f grad.b ]; then
-	echo "grad.b exist... skipping"
-else
-	echo "starting matlab to create grad.b"
-    	./compiled/main
-fi
+#generate grad.b from bvecs/bvals
+#load bvals/bvecs
+bvals=$(cat $BVALS)
+bvecs_x=$(cat $BVECS | head -1)
+bvecs_y=$(cat $BVECS | head -2 | tail -1)
+bvecs_z=$(cat $BVECS | tail -1)
+#convert strings to array of numbers
+bvecs_x=($bvecs_x)
+bvecs_y=($bvecs_y)
+bvecs_z=($bvecs_z)
+#output grad.b
+i=0
+true > grad.b
+for bval in $bvals; do
+    echo ${bvecs_x[$i]} ${bvecs_y[$i]} ${bvecs_z[$i]} $bval >> grad.b
+    i=$((i+1))
+done
 
 #if max_lmax is empty, auto calculate
 MAXLMAX=`jq -r '.max_lmax' config.json`
@@ -49,12 +64,19 @@ if [[ $MAXLMAX == "null" || -z $MAXLMAX ]]; then
     MAXLMAX=`./calculatelmax.py`
 fi
 
-########### CONVERSION OF FILES ############
-mrconvert $input_nii_gz dwi.mif
-mrconvert mask_anat.nii.gz b0.mif
-mrconvert wm_anat.nii.gz $WMMK
+if [ ! -f dwi.mif ]; then
+    mrconvert $input_nii_gz dwi.mif
+fi
 
-mkdir roi;
+if [ ! -f b0.mif ]; then
+    mrconvert mask_anat.nii.gz b0.mif
+fi
+
+if [ ! -f $WMMK ]; then
+    mrconvert wm_anat.nii.gz $WMMK
+fi
+
+mkdir -p roi
 for ROI in ${roipair[*]}
 	do
 		cp $rois/roi_${ROI}.nii.gz ./
@@ -153,37 +175,47 @@ done
 ROI=(*roi_*.mif);
 range=` expr ${#ROI[@]}`
 nTracts=` expr ${range} / 2`
-for (( i=0; i<=$nTracts; i+=2 ));
-	do
-		for i_track in $(seq $NUM_REPETITIONS)
-			do
-				echo ${i_track}
-				for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 ))
-					do
-    						for curv in 0.5 1 2 3 4
-							do
-								streamtrack SD_PROB csd${i_lmax}.mif tract$((i/2+1))_lmax${i_lmax}_crv${curv}_${i_track}.tck -mask $WMMK -grad $BGRAD -number $NUM -maxnum $MAXNUM -curvature $curv -step $STEPSIZE -minlength $MINLENGTH -length $MAXLENGTH -seed ${ROI[$((i))]} -include ${ROI[$((i))]} -include ${ROI[$((i+1))]} -stop
-							done
-					done
-			done
-		## concatenate tracts
-		holder=(*tract$((i/2+1))*.tck)
-		cat_tracks track$((i/2+1)).tck ${holder[*]}
-		if [ ! $ret -eq 0 ]; then
-			exit $ret
-		fi
-		rm -rf ${holder[*]}
-		## tract info
-		track_info track$((i/2+1)).tck > track_info$((i/2+1)).txt
-		if [[ $((i/2+1)) == 1 ]];then
-			mv track_info$((i/2+1)).txt track_info.txt
-			mv track$((i/2+1)).tck track.tck
-		fi
-	done
+for (( i=0; i<=$nTracts; i+=2 )); do
+    for i_track in $(seq $NUM_REPETITIONS); do
+        echo ${i_track}
+        for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 )); do
+            for curv in 0.5 1 2 3 4; do
+                out=tract$((i/2+1))_lmax${i_lmax}_crv${curv}_${i_track}.tck
+                timeout 3600 time streamtrack -quiet SD_PROB csd${i_lmax}.mif tmp.tck \
+                    -mask $WMMK \
+                    -grad $BGRAD \
+                    -number $NUM \
+                    -maxnum $MAXNUM \
+                    -curvature $curv \
+                    -step $STEPSIZE \
+                    -minlength $MINLENGTH \
+                    -length $MAXLENGTH \
+                    -seed ${ROI[$((i))]} \
+                    -include ${ROI[$((i))]} \
+                    -include ${ROI[$((i+1))]} \
+                    -stop
+                mv tmp.tck $out
+            done
+        done
+    done
 
+    ## concatenate tracts
+    holder=(*tract$((i/2+1))*.tck)
+    cat_tracks track$((i/2+1)).tck ${holder[*]}
+    if [ ! $ret -eq 0 ]; then
+        exit $ret
+    fi
+    rm -rf ${holder[*]}
+    ## tract info
+    track_info track$((i/2+1)).tck > track_info$((i/2+1)).txt
+    if [[ $((i/2+1)) == 1 ]];then
+        mv track_info$((i/2+1)).txt track_info.txt
+        mv track$((i/2+1)).tck track.tck
+    fi
+done
 
 ################# CREATE CLASSIFICATION STRUCTURE ###############
-./classification/classificationGenerator
+./compiled/classificationGenerator
 
 ################# CLEANUP #######################################
 rm -rf ./roi/

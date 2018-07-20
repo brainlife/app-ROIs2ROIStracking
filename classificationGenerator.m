@@ -1,20 +1,21 @@
 function [] = classificationGenerator()
 
-switch getenv('ENV')
-    case 'IUHPC'
-        disp('loading paths for IUHPC')
-        addpath(genpath('/N/u/brlife/git/vistasoft'))
-        addpath(genpath('/N/u/brlife/git/jsonlab'))
-        addpath(genpath('/N/u/brlife/git/encode'))
-        addpath(genpath('/N/u/brlife/git/spm'))
-        addpath(genpath('/N/u/brlife/git/wma'))
-    case 'VM'
-        disp('loading paths for Jetstream VM')
-        addpath(genpath('/usr/local/vistasoft'))
-        addpath(genpath('/usr/local/jsonlab'))
-        addpath(genpath('/usr/local/encode'))
-        addpath(genpath('/usr/local/spm'))
-        addpath(genpath('/usr/local/wma'))
+if ~isdeployed
+    disp('loading path')
+
+    %for IU HPC
+    addpath(genpath('/N/u/brlife/git/vistasoft'))
+    addpath(genpath('/N/u/brlife/git/encode'))
+    addpath(genpath('/N/u/brlife/git/jsonlab'))
+    addpath(genpath('/N/u/brlife/git/spm'))
+    addpath(genpath('/N/u/brlife/git/wma'))
+
+    %for old VM
+    addpath(genpath('/usr/local/vistasoft'))
+    addpath(genpath('/usr/local/encode'))
+    addpath(genpath('/usr/local/jsonlab'))
+    addpath(genpath('/usr/local/spm'))
+    addpath(genpath('/usr/local/wma'))
 end
 
 % Set top directory
