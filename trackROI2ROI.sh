@@ -81,8 +81,10 @@ for ROI in ${roipair[*]}
 	do
 		cp $rois/roi_${ROI}.nii.gz ./
 		# add line to remove .nii.gz from name
-		mrconvert roi_${ROI}.nii.gz roi_${ROI}.mif
-		mv roi_${ROI}.nii.gz ./roi/
+        if [ ! -f roi_${ROI}.mif ]; then
+		    mrconvert roi_${ROI}.nii.gz roi_${ROI}.mif
+        fi
+        mv roi_${ROI}.nii.gz ./roi/
 	done
 	ret=$?	
 	if [ ! $ret -eq 0 ]; then
