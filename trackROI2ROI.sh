@@ -183,7 +183,7 @@ for (( i=0; i<=$nTracts; i+=2 )); do
         for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 )); do
             for curv in 0.5 1 2 3 4; do
                 out=tract$((i/2+1))_lmax${i_lmax}_crv${curv}_${i_track}.tck
-                timeout 3600 time streamtrack -quiet SD_PROB csd${i_lmax}.mif tmp.tck \
+                timeout 3600 streamtrack -quiet SD_PROB csd${i_lmax}.mif tmp.tck \
                     -mask $WMMK \
                     -grad $BGRAD \
                     -number $NUM \
