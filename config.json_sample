@@ -8,5 +8,6 @@
 	"dtiinit":	"<path to a folder containing dtiinit output>",
 	"freesurfer":	"<path to a folder containing freesurfer output>",
 	"parcellation":	"<path to a folder containing roi niftis, or leave as empty quotation marks (i.e. "") if not wanting to include a parcellation>",
-	"max_lmax": ""
+	"max_lmax": "",
+	"num_repetitions": 2
 }
