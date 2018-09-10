@@ -70,7 +70,7 @@ This App requires the following libraries when run locally.
   - singularity: https://singularity.lbl.gov/
   - VISTASOFT: https://github.com/vistalab/vistasoft/
   - ENCODE: https://github.com/brain-life/encode
-  - SPM 8 or 12
+  - SPM 8 or 12: https://www.fil.ion.ucl.ac.uk/spm/software/spm8/
   - WMA: https://github.com/brain-life/wma
   - Freesurfer: https://hub.docker.com/r/brainlife/freesurfer/tags/6.0.0
   - mrtrix: https://hub.docker.com/r/brainlife/mrtrix_on_mcr/tags/1.0
