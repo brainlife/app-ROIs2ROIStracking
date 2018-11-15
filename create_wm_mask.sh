@@ -8,9 +8,8 @@ set -e
 #show commands runnings
 set -x
 
-dtiinit=`jq -r '.dtiinit' config.json`
 fsurfer=`jq -r '.freesurfer' config.json`
-export input_nii_gz=$dtiinit/`jq -r '.files.alignedDwRaw' $dtiinit/dt6.json`
+input_nii_gz=`jq -r '.dwi' config.json`
 
 mri_label2vol --seg $fsurfer/mri/aparc+aseg.mgz \
     --temp $input_nii_gz \

@@ -14,12 +14,12 @@ import os
 with open('config.json') as config_json:
     config = json.load(config_json)
 
-with open(config["dtiinit"]+'/dt6.json') as dt6_json:
-    dt6config = json.load(dt6_json)
+#with open(config["dtiinit"]+'/dt6.json') as dt6_json:
+#    dt6config = json.load(dt6_json)
 
 #get non0 bvals
 #f = open(config["bvals"], 'r')
-f = open(config["dtiinit"]+"/"+dt6config["files"]["alignedDwBvals"], 'r')
+f = open(config["bvals"], 'r')
 line = f.readline().strip().replace(",", " ")
 bvals = line.split(" ")
 bvals_non0 = filter(lambda v: v != "0", bvals)

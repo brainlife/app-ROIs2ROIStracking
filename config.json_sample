@@ -1,13 +1,15 @@
 {
-	"roiPair":	"23 95",
+	"roiPairs":	"23 95 2 8\n1 2 12 34\n8 3 5\n4 5",
 	"maxlength":	200,
 	"minlength":	10,
 	"stepsize":	0.2,
 	"max_num":	1000000,
 	"num_fibers":	500000,
-	"dtiinit":	"<path to a folder containing dtiinit output>",
-	"freesurfer":	"<path to a folder containing freesurfer output>",
-	"parcellation":	"<path to a folder containing roi niftis, or leave as empty quotation marks (i.e. "") if not wanting to include a parcellation>",
+    "dwi": "testdata/dwi/dwi_aligned_trilin_noMEC.nii.gz",
+    "bvecs": "testdata/dwi/dwi_aligned_trilin_noMEC.bvecs",
+    "bvals": "testdata/dwi/dwi_aligned_trilin_noMEC.bvals",
+	"freesurfer":	"testdata/freesurfer/output", 
+	"parcellation":	"testdata/parc",
 	"max_lmax": "",
 	"num_repetitions": 2
 }
