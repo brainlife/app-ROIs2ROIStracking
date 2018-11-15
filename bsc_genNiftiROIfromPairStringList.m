@@ -1,4 +1,4 @@
-function bsc_genNiftiROIfromPairStringList()
+function bsc_genNiftiROIfromPairStringList(atlas,ROIstring, smoothKernel)
 % bsc_genNiftiROIfromStringList(atlas,ROIstring, smoothKernel)
 %
 % Given a string list of rois (in the specified format) loops over
@@ -20,8 +20,7 @@ function bsc_genNiftiROIfromPairStringList()
 %  installed and set up properly.
 %
 %  (C) Daniel Bullock 2018 Bloomington, Indiana
-%% Begin code
-%% get config.json
+
 if ~isdeployed
     addpath(genpath('/N/u/brlife/git/jsonlab'))
     addpath(genpath('/N/u/brlife/git/vistasoft'))
@@ -34,7 +33,6 @@ smoothKernel=config.smoothKernel;
 ROIstring=config.roiPairs;
 atlas=niftiRead(atlas);
 
-%% gen ROI
 fprintf('Generating ROIs for the following indicies: \n %s',ROIstring);
 stringCells = splitlines(ROIstring);
 
