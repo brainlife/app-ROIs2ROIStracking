@@ -31,7 +31,7 @@ classification.index=[];
 
 
 % Amend name of tract in classification structure
-for ii = round((1:length(roiPair))/2)
+for ii = round((1:length(stringCells))/2)
     name1=strrep(stringCells{(2*ii) - 1},' ', '_');
     name2=strrep(stringCells{(2*ii)},' ', '_');
     fgPath = fullfile(topdir,strcat('track',num2str(ii),'.tck');
