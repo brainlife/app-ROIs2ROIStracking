@@ -1,4 +1,4 @@
-function bsc_genNiftiROIfromPairStringList()
+function bsc_genNiftiROIfromPairStringList(atlas,ROIstring, smoothKernel)
 % bsc_genNiftiROIfromStringList(atlas,ROIstring, smoothKernel)
 %
 % Given a string list of rois (in the specified format) loops over
@@ -21,33 +21,8 @@ function bsc_genNiftiROIfromPairStringList()
 %
 %  (C) Daniel Bullock 2018 Bloomington, Indiana
 %% Begin code
-%% get config.json
-if ~isdeployed
-addpath(genpath('/N/u/brlife/git/jsonlab'))
-end
 
-config=loadjson('config.json')
-atlas=config.atlas;
-smoothKernel=config.smoothKernel;
-ROIstring=config.roiPairs;
 %% set up aparcAsegFile
-if or(isstring(atlas),ischar(atlas))
-    if ~exist(atlas,'file')
-    %apaprently necessary for matlab?
-    spaceChar={' '};
-    %I dont know why this is necessary
-    quoteString=strcat('mri_convert',spaceChar, fsDir,'/mri/',mgzfile ,spaceChar, niiPath);
-    quoteString=quoteString{:};
-    [status result] = system(quoteString, '-echo');
-    if status~=0
-        warning('/n Error generating aseg nifti file.  There may be a problem finding the file. Output: %s ',result)
-        
-    end
-end
-    atlas=niftiRead(atlas);
-else
-    %do nothing
-end
 
 %% gen ROI
 fprintf('Generating ROIs for the following indicies: \n %s',ROIstring);
@@ -56,7 +31,7 @@ stringCells = splitlines(ROIstring);
 for iROIs=1:length(stringCells)
     ROInums=str2num(stringCells{iROIs});
     %% run the merge roi function
-    [mergedROI] =bsc_ROIFromAtlasNums(atlas,ROInums, smoothKernel);
+    [mergedROI] =bsc_roiFromAtlasNums(atlas,ROInums, smoothKernel);
     
     %% save it and ouput the nii and name
     currROIName=strcat('/roi/ROI',num2str(iROIs));
