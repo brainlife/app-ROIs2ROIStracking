@@ -24,7 +24,7 @@ topdir = pwd;
 % Load configuration file
 config = loadjson('config.json');
 
-stringCells = splitlines(config.roiPair);
+stringCells = splitlines(config.roiPairs);
 
 classification.names=[];
 classification.index=[];
