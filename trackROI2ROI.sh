@@ -36,6 +36,13 @@ MAXLENGTH=`jq -r '.maxlength' config.json`
 NUM_REPETITIONS=`jq -r '.num_repetitions' config.json`
 WMMK=wm_mask.mif
 
+smooth=$(jq -r .smoothKernel $config.json)
+atlas=$(jq -r .parcellation $config.json)
+roiPairs=$(jq -r .roiPairs $config.json)
+
+# generate rois
+ matlab -r -nodisplay bsc_genNiftiROIfromPairStringList atlas roiPairs smooth
+
 #generate grad.b from bvecs/bvals
 #load bvals/bvecs
 bvals=$(cat $BVALS)
