@@ -29,7 +29,7 @@ end
 config=loadjson('config.json')
 atlas=config.atlas;
 smoothKernel=config.smoothKernel;
-ROIstring=config.ROInums;
+ROIstring=config.roiPairs;
 %% set up aparcAsegFile
 if or(isstring(atlas),ischar(atlas))
     if ~exist(atlas,'file')
