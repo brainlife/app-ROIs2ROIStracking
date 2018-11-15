@@ -24,13 +24,10 @@ set -x
 export PATH=$PATH:/usr/lib/mrtrix/bin
 
 BGRAD="grad.b"
-dtiinit=`jq -r '.dtiinit' config.json`
-input_nii_gz=$dtiinit/`jq -r '.files.alignedDwRaw' $dtiinit/dt6.json`
-BVALS=$dtiinit/`jq -r '.files.alignedDwBvals' $dtiinit/dt6.json`
-BVECS=$dtiinit/`jq -r '.files.alignedDwBvecs' $dtiinit/dt6.json`
+input_nii_gz=$(jq -r .dwi $config.json)
+BVALS=$(jq -r .bvals $config.json)
+BVECS=$(jq -r .bvecs $config.json)
 fsurfer=`jq -r '.freesurfer' config.json`
-rois=`jq -r '.parcellation' config.json`
-roipair=`jq -r '.roiPair' config.json`
 NUM=`jq -r '.num_fibers' config.json`
 MAXNUM=`jq -r '.max_num' config.json`
 STEPSIZE=`jq -r '.stepsize' config.json`
@@ -76,15 +73,17 @@ if [ ! -f $WMMK ]; then
     mrconvert wm_anat.nii.gz $WMMK
 fi
 
+
 mkdir -p roi
-for ROI in ${roipair[*]}
+
+for ROI in ${ls roi/*.nii.gz}
 	do
-		cp $rois/roi_${ROI}.nii.gz ./
+
 		# add line to remove .nii.gz from name
-        if [ ! -f roi_${ROI}.mif ]; then
-		    mrconvert roi_${ROI}.nii.gz roi_${ROI}.mif
+        if [ ! -f $ROI.mif ]; then
+		    mrconvert $ROI $ROI.mif
         fi
-        mv roi_${ROI}.nii.gz ./roi/
+        mv $ROI.nii.gz roi
 	done
 	ret=$?	
 	if [ ! $ret -eq 0 ]; then
@@ -174,7 +173,7 @@ for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 )); do
 done
 
 ################# ROI2ROI TRACKING ############################
-ROI=(*roi_*.mif);
+ROI=(*roi*.mif);
 range=` expr ${#ROI[@]}`
 nTracts=` expr ${range} / 2`
 for (( i=0; i<=$nTracts; i+=2 )); do
@@ -199,7 +198,6 @@ for (( i=0; i<=$nTracts; i+=2 )); do
                 mv tmp.tck $out
             done
         done
-    done
 
     ## concatenate tracts
     holder=(*tract$((i/2+1))*.tck)
@@ -212,12 +210,12 @@ for (( i=0; i<=$nTracts; i+=2 )); do
     track_info track$((i/2+1)).tck > track_info$((i/2+1)).txt
     if [[ $((i/2+1)) == 1 ]];then
         mv track_info$((i/2+1)).txt track_info.txt
-        mv track$((i/2+1)).tck track.tck
     fi
+    done
 done
 
 ################# CREATE CLASSIFICATION STRUCTURE ###############
-./compiled/classificationGenerator
+./compiled/classificationNamesGenerator
 
 ################# CLEANUP #######################################
 rm -rf ./roi/
