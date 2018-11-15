@@ -1,4 +1,4 @@
-function bsc_genNiftiROIfromPairStringList(atlas,ROIstring, smoothKernel)
+function bsc_genNiftiROIfromPairStringList()
 % bsc_genNiftiROIfromStringList(atlas,ROIstring, smoothKernel)
 %
 % Given a string list of rois (in the specified format) loops over
@@ -21,9 +21,16 @@ function bsc_genNiftiROIfromPairStringList(atlas,ROIstring, smoothKernel)
 %
 %  (C) Daniel Bullock 2018 Bloomington, Indiana
 %% Begin code
+%% get config.json
+if ~isdeployed
+addpath(genpath('/N/u/brlife/git/jsonlab'))
+end
 
+config=loadjson('config.json')
+atlas=config.atlas;
+smoothKernel=config.smoothKernel;
+ROIstring=config.ROInums;
 %% set up aparcAsegFile
-
 if or(isstring(atlas),ischar(atlas))
     if ~exist(atlas,'file')
     %apaprently necessary for matlab?
@@ -41,6 +48,7 @@ end
 else
     %do nothing
 end
+
 %% gen ROI
 fprintf('Generating ROIs for the following indicies: \n %s',ROIstring);
 stringCells = splitlines(ROIstring);
