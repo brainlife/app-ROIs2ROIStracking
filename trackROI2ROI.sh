@@ -198,7 +198,7 @@ for (( i=0; i<=$nTracts; i+=2 )); do
                 mv tmp.tck $out
             done
         done
-
+ 	done
     ## concatenate tracts
     holder=(*tract$((i/2+1))*.tck)
     cat_tracks track$((i/2+1)).tck ${holder[*]}
@@ -211,7 +211,7 @@ for (( i=0; i<=$nTracts; i+=2 )); do
     if [[ $((i/2+1)) == 1 ]];then
         mv track_info$((i/2+1)).txt track_info.txt
     fi
-    done
+    
 done
 
 ################# CREATE CLASSIFICATION STRUCTURE ###############
