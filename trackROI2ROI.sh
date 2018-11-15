@@ -24,9 +24,9 @@ set -x
 export PATH=$PATH:/usr/lib/mrtrix/bin
 
 BGRAD="grad.b"
-input_nii_gz=$(jq -r .dwi $config.json)
-BVALS=$(jq -r .bvals $config.json)
-BVECS=$(jq -r .bvecs $config.json)
+input_nii_gz=$(jq -r .dwi config.json)
+BVALS=$(jq -r .bvals config.json)
+BVECS=$(jq -r .bvecs config.json)
 fsurfer=`jq -r '.freesurfer' config.json`
 NUM=`jq -r '.num_fibers' config.json`
 MAXNUM=`jq -r '.max_num' config.json`
@@ -35,13 +35,6 @@ MINLENGTH=`jq -r '.minlength' config.json`
 MAXLENGTH=`jq -r '.maxlength' config.json`
 NUM_REPETITIONS=`jq -r '.num_repetitions' config.json`
 WMMK=wm_mask.mif
-
-smooth=$(jq -r .smoothKernel $config.json)
-atlas=$(jq -r .parcellation $config.json)
-roiPairs=$(jq -r .roiPairs $config.json)
-
-# generate rois
- matlab -r -nodisplay bsc_genNiftiROIfromPairStringList atlas roiPairs smooth
 
 #generate grad.b from bvecs/bvals
 #load bvals/bvecs
