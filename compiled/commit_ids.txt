@@ -1,0 +1,31 @@
+/N/u/brlife/git/vistasoft
+commit cf75f1a8c037382d6a157f0a7b683a3fd424ee4c
+Merge: 8bea0b7 7e4a5c5
+Author: rokers <rokers@gmail.com>
+Date:   Fri Jul 13 17:13:01 2018 -0400
+
+    Merge branch 'master' of https://github.com/vistalab/vistasoft
+/N/u/brlife/git/jsonlab
+commit 474d8c824800b5f2109c08f989085cb961acdbe3
+Merge: ae7a5d9 38b24fb
+Author: Qianqian Fang <fangqq@gmail.com>
+Date:   Wed Sep 6 13:01:57 2017 -0400
+
+    Merge pull request #41 from dasantonym/master
+    
+    added package.json to be able to intall via npm package manager
+/N/u/brlife/git/wma_tools
+commit 05487c481fd3cfe76932acd93e1960da83b64da0
+Merge: c25dafc ca7d12d
+Author: Daniel Bullock <dnbulloc@i5.red.uits.iu.edu>
+Date:   Thu Nov 15 16:14:30 2018 -0500
+
+    erge branch 'master' of github.com:DanNBullock/wma_segTools
+/N/u/brlife/git/encode
+commit e4f38b1d47422dae3cda239ba558d8491bad6000
+Author: Soichi Hayashi <hayashis@iu.edu>
+Date:   Tue Nov 6 12:51:46 2018 -0500
+
+    Remove log that's too verbose
+    
+    ref > https://github.com/brain-life/app-networkneuro/issues/1
