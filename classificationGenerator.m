@@ -27,7 +27,7 @@ config = loadjson('config.json');
 % Set tck file path/s
 rois=dir('*.tck*');
 
-roiPair = str2num(config.roiPair);
+roiPair = str2num(config.roiPairs);
 for ii = 1:length(rois); 
     fgPath{ii} = fullfile(topdir,rois(ii).name);
 end
