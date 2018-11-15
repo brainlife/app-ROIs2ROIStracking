@@ -1,21 +1,11 @@
 function [] = classificationNamesGenerator()
 
 if ~isdeployed
-    disp('loading path')
-
-    %for IU HPC
     addpath(genpath('/N/u/brlife/git/vistasoft'))
     addpath(genpath('/N/u/brlife/git/encode'))
     addpath(genpath('/N/u/brlife/git/jsonlab'))
-    addpath(genpath('/N/u/brlife/git/spm'))
-    addpath(genpath('/N/u/brlife/git/wma'))
-
-    %for old VM
-    addpath(genpath('/usr/local/vistasoft'))
-    addpath(genpath('/usr/local/encode'))
-    addpath(genpath('/usr/local/jsonlab'))
-    addpath(genpath('/usr/local/spm'))
-    addpath(genpath('/usr/local/wma'))
+    addpath(genpath('/N/u/brlife/git/spm12'))
+    addpath(genpath('/N/u/brlife/git/wma_tools'))
 end
 
 % Set top directory
@@ -28,7 +18,6 @@ stringCells = splitlines(config.roiPairs);
 
 classification.names=[];
 classification.index=[];
-
 
 % Amend name of tract in classification structure
 for ii = round((1:length(roiPair))/2)

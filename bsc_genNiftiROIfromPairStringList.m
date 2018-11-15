@@ -31,7 +31,7 @@ config=loadjson('config.json')
 atlas=config.atlas;
 smoothKernel=config.smoothKernel;
 ROIstring=config.roiPairs;
-atlas=niftiRead(atlas);
+atlas=fullfile(atlas, 'parc.nii.gz');
 
 fprintf('Generating ROIs for the following indicies: \n %s',ROIstring);
 stringCells = splitlines(ROIstring);
@@ -42,8 +42,8 @@ for iROIs=1:length(stringCells)
     [mergedROI] =bsc_roiFromAtlasNums(atlas,ROInums, smoothKernel);
     
     %% save it and ouput the nii and name
-    currROIName=strcat('/roi/ROI',num2str(iROIs));
-    [~, ~]=dtiRoiNiftiFromMat (mergedROI,atlas,currROIName,smoothKernel);
+    currROIName=strcat('roi/ROI',num2str(iROIs), '.nii.gz');
+    [~, ~]=dtiRoiNiftiFromMat(mergedROI,atlas,currROIName,1);
 end
 end
 
