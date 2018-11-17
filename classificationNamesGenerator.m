@@ -23,7 +23,7 @@ classification.index=[];
 for ii = round((1:length(stringCells))/2)
     name1=strrep(stringCells{(2*ii) - 1},' ', '_');
     name2=strrep(stringCells{(2*ii)},' ', '_');
-    fgPath = fullfile(topdir,strcat('track',num2str(ii),'.tck');
+    fgPath = fullfile(topdir,strcat('track',num2str(ii),'.tck'));
     if ii==1
         [mergedFG, classification]=bsc_mergeFGandClass(fgPath,classification);
     else

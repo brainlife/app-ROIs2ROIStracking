@@ -74,20 +74,13 @@ if [ ! -f $WMMK ]; then
 fi
 
 for ROI in $(ls roi/*.nii.gz)
-	do
-
-		# add line to remove .nii.gz from name
+do
+	# add code to remove .nii.gz from name
         if [ ! -f $ROI.mif ]; then
 		    mrconvert $ROI $ROI.mif
         fi
-        mv $ROI.nii.gz roi
-	done
-	ret=$?	
-	if [ ! $ret -eq 0 ]; then
-		exit $ret
-	fi
+done
 
-########### CREATE FILES FOR TRACKING ######
 ## create a t2-mask from b0
 if [ -f mask.mif ]; then
 	echo "t2-mask from b0 already exists...skipping"
@@ -170,7 +163,8 @@ for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 )); do
 done
 
 ################# ROI2ROI TRACKING ############################
-ROI=(*roi*.mif);
+ROI=$(ls roi/ROI*.mif);
+echo $ROI
 range=` expr ${#ROI[@]}`
 nTracts=` expr ${range} / 2`
 for (( i=0; i<=$nTracts; i+=2 )); do
@@ -195,7 +189,7 @@ for (( i=0; i<=$nTracts; i+=2 )); do
                 mv tmp.tck $out
             done
         done
-
+ 	done
     ## concatenate tracts
     holder=(*tract$((i/2+1))*.tck)
     cat_tracks track$((i/2+1)).tck ${holder[*]}
@@ -208,7 +202,7 @@ for (( i=0; i<=$nTracts; i+=2 )); do
     if [[ $((i/2+1)) == 1 ]];then
         mv track_info$((i/2+1)).txt track_info.txt
     fi
-    done
+    
 done
 
 ################# CREATE CLASSIFICATION STRUCTURE ###############
