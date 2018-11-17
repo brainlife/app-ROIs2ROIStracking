@@ -73,10 +73,7 @@ if [ ! -f $WMMK ]; then
     mrconvert wm_anat.nii.gz $WMMK
 fi
 
-
-mkdir -p roi
-
-for ROI in ${ls roi/*.nii.gz}
+for ROI in $(ls roi/*.nii.gz)
 	do
 
 		# add line to remove .nii.gz from name
