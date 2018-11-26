@@ -4,6 +4,7 @@
 ## Human Engogenous Attention Network
 ## (modified after Ilaria Sani - 20170117 - NHP Endogenous Attention Network)
 ## (modified after Brent McPherson)
+## (Modified by Dan Bullock and Soichi Hayashis 20181126)
 ##
 ## MRTRIX PRE-PROCESSING (no need for WM mask for humans)
 ## This script process DTI data with MRTRIX, i.e. prepares the data for tracking
