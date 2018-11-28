@@ -74,7 +74,7 @@ if [ ! -f $WMMK ]; then
     mrconvert wm_anat.nii.gz $WMMK
 fi
 
-for ROI in $(ls roi/*.nii.gz)
+for ROI in [ls *roi_*.mif | wc -l ]
 do
 	# add code to remove .nii.gz from name
         if [ ! -f $ROI.mif ]; then
