@@ -75,8 +75,8 @@ fi
 
 
 mkdir -p roi
-
-for ROI in ${ls roi/*.nii.gz}
+RoiList=`ls roi/*.nii.gz`
+for ROI in $RoiList
 	do
 
 		# add line to remove .nii.gz from name
@@ -173,9 +173,8 @@ for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 )); do
 done
 
 ################# ROI2ROI TRACKING ############################
-ROI=(*roi*.mif);
-range=` expr ${#ROI[@]}`
-nTracts=` expr ${range} / 2`
+
+nTracts=` expr ls *roi_*.mif | wc -l `
 for (( i=0; i<=$nTracts; i+=2 )); do
     for i_track in $(seq $NUM_REPETITIONS); do
         echo ${i_track}

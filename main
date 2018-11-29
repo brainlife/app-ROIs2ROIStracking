@@ -12,9 +12,12 @@ if [ ! -f wm_anat.nii.gz ]; then
     time singularity exec --writable -e docker://brainlife/freesurfer:6.0.0 bash -c "echo $FREESURFER_LICENSE > /usr/local/freesurfer/license.txt && ./create_wm_mask.sh"
 fi
 
-if [ ! -d roi ]; then
+mkdir -p roi
+roiCount=$(expr ls /roi/*.mif | wc -l)
+chkVal=0
+if [ $roiCount -eq $chkVal ]; then
     echo "generate rois"
-    mkdir -p roi
+
     time matlab -r -nodisplay bsc_genNiftiROIfromPairStringList
 fi
 
