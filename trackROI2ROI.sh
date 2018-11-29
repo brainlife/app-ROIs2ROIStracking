@@ -4,6 +4,7 @@
 ## Human Engogenous Attention Network
 ## (modified after Ilaria Sani - 20170117 - NHP Endogenous Attention Network)
 ## (modified after Brent McPherson)
+## (Modified by Dan Bullock and Soichi Hayashis 20181126)
 ##
 ## MRTRIX PRE-PROCESSING (no need for WM mask for humans)
 ## This script process DTI data with MRTRIX, i.e. prepares the data for tracking
@@ -78,19 +79,11 @@ mkdir -p roi
 RoiList=`ls roi/*.nii.gz`
 for ROI in $RoiList
 	do
-
-		# add line to remove .nii.gz from name
         if [ ! -f $ROI.mif ]; then
 		    mrconvert $ROI $ROI.mif
         fi
-        mv $ROI.nii.gz roi
-	done
-	ret=$?	
-	if [ ! $ret -eq 0 ]; then
-		exit $ret
-	fi
+done
 
-########### CREATE FILES FOR TRACKING ######
 ## create a t2-mask from b0
 if [ -f mask.mif ]; then
 	echo "t2-mask from b0 already exists...skipping"

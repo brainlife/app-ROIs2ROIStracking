@@ -12,8 +12,8 @@ echo "/N/u/brlife/git/wma_tools" >> $log
 (cd /N/u/brlife/git/wma_tools && git log -1) >> $log
 echo "/N/u/brlife/git/encode" >> $log
 (cd /N/u/brlife/git/encode && git log -1) >> $log
-# echo "/N/u/brlife/git/spm12" >> $log
-# (cd /N/u/brlife/git/spm12 && git log -1) >> $log
+#echo "/N/u/brlife/git/spm12" >> $log
+#(cd /N/u/brlife/git/spm12 && git log -1) >> $log
 
 cat > build.m <<END
 addpath(genpath('/N/u/brlife/git/vistasoft'))
