@@ -9,7 +9,7 @@
     "bvecs": "/N/dc2/projects/lifebid/HCP/Dan/OtherTestData/proj-5941a225f876b000210c11e5/sub-100206/dt-neuro-dwi.id-5967bffa9b45c212bbec8956/dwi.bvecs",
     "bvals": "//N/dc2/projects/lifebid/HCP/Dan/OtherTestData/proj-5941a225f876b000210c11e5/sub-100206/dt-neuro-dwi.id-5967bffa9b45c212bbec8956/dwi.bvals",
 	"freesurfer":	"/N/dc2/projects/lifebid/HCP/Dan/OtherTestData/proj-5941a225f876b000210c11e5/sub-100206/dt-neuro-freesurfer.id-5967bffa9b45c212bbec8958/output", 
-	"atlas":	"/N/dc2/projects/lifebid/HCP/Dan/OtherTestData/proj-5941a225f876b000210c11e5/sub-100206/dt-neuro-freesurfer.id-5967bffa9b45c212bbec8958/output/mri/aparc.a2009s+aseg.nii.gz",
+	"atlas":	"testdata/parcellation/parc",
     "smoothKernel": 0,
 	"max_lmax": "",
 	"num_repetitions": 2

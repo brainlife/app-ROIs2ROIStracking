@@ -13,7 +13,7 @@ if [ ! -f wm_anat.nii.gz ]; then
 fi
 
 mkdir -p roi
-roiCount=$(expr ls /roi/*.mif | wc -l)
+roiCount=$(ls roi/*.mif | wc -l)
 chkVal=0
 if [ $roiCount -eq $chkVal ]; then
     echo "generate rois"
