@@ -34,6 +34,9 @@ ROIstring=config.roiPairs;
 atlas=fullfile(atlas, 'parc.nii.gz');
 
 fprintf('Generating ROIs for the following indicies: \n %s',ROIstring);
+%just in case
+ROIstring=strrep(ROIstring,'\n',newline);
+ROIstring=strrep(ROIstring,';',newline);
 stringCells = splitlines(ROIstring);
 
 for iROIs=1:length(stringCells)

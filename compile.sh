@@ -23,7 +23,14 @@ mcc -m -R -nodisplay -d compiled bsc_genNiftiROIfromPairStringList
 
 addpath(genpath('/N/u/brlife/git/spm12'))
 mcc -m -R -nodisplay -d compiled classificationNamesGenerator
+
+addpath(genpath('/N/u/brlife/git/vistasoft'))
+addpath(genpath('/N/u/brlife/git/jsonlab'))
+addpath(genpath('/N/u/brlife/git/wma_tools'))
+mcc -m -R -nodisplay -d compiled wma_formatForBrainLife
+
 exit
 END
+
 matlab -nodisplay -nosplash -r build && rm build.m
 
