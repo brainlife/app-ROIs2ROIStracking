@@ -15,13 +15,11 @@ Date:   Wed Sep 6 13:01:57 2017 -0400
     
     added package.json to be able to intall via npm package manager
 /N/u/brlife/git/wma_tools
-commit 257eb62217e606860fa970991161a05cb08ff8bf
-Author: DanNBullock <dnbulloc@umail.iu.edu>
-Date:   Thu Nov 29 13:58:48 2018 -0500
+commit f425dba7a5917d86795f5ef99772de0504ad94ab
+Author: Daniel Bullock <dnbulloc@i5.red.uits.iu.edu>
+Date:   Wed Dec 5 18:11:28 2018 -0500
 
-    Update bsc_roiFromAtlasNums.m
-    
-    added more reports and fixed mgz conversion component
+    updated tools for bl apps
 /N/u/brlife/git/encode
 commit e4f38b1d47422dae3cda239ba558d8491bad6000
 Author: Soichi Hayashi <hayashis@iu.edu>
