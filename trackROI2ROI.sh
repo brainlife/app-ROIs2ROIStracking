@@ -192,7 +192,7 @@ for (( i=0; i<=$nTracts; i+=2 )); do
         done
  	done
     ## concatenate tracts
-    holder=(*tract$((i/2+1))*.tck)
+    holder= $(ls *track$((i/2+1))*.tck)
     echo $holder
     cat_tracks track$((i/2+1)).tck $(ls *.tck | head -1) $(ls *.tck | tail -n+2) 
     if [ ! $ret -eq 0 ]; then
