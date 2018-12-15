@@ -18,7 +18,7 @@ chkVal=0
 if [ $roiCount -eq $chkVal ]; then
     echo "generate rois"
 
-time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/bsc_genNiftiROIfromPairStringList
+time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/bsc_GenROIfromPairStringList_BL
 fi
 
 echo "tracking"

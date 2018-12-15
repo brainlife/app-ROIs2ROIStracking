@@ -15,16 +15,17 @@ Date:   Wed Sep 6 13:01:57 2017 -0400
     
     added package.json to be able to intall via npm package manager
 /N/u/brlife/git/wma_tools
-commit f425dba7a5917d86795f5ef99772de0504ad94ab
-Author: Daniel Bullock <dnbulloc@i5.red.uits.iu.edu>
-Date:   Wed Dec 5 18:11:28 2018 -0500
+commit 3684e879fa0524066c19b3f71995e1e1e7ca1701
+Author: Daniel Bullock <dnbulloc@i10.red.uits.iu.edu>
+Date:   Tue Dec 11 16:32:07 2018 -0500
 
-    updated tools for bl apps
+    fixed minor issues with warning
 /N/u/brlife/git/encode
-commit e4f38b1d47422dae3cda239ba558d8491bad6000
-Author: Soichi Hayashi <hayashis@iu.edu>
-Date:   Tue Nov 6 12:51:46 2018 -0500
+commit c6d514a0af169c58fbc48b519879f84dd6f92f68
+Merge: 5ec160d 1e1e017
+Author: Franco Pestilli <frakkopesto@gmail.com>
+Date:   Fri Dec 14 09:35:22 2018 -0500
 
-    Remove log that's too verbose
+    Merge pull request #93 from soichih/master
     
-    ref > https://github.com/brain-life/app-networkneuro/issues/1
+    Added code to clip out-of-dwi fiber coordinates
