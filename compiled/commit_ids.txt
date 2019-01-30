@@ -15,17 +15,14 @@ Date:   Wed Sep 6 13:01:57 2017 -0400
     
     added package.json to be able to intall via npm package manager
 /N/u/brlife/git/wma_tools
-commit 6485e007d08d386f86cef88c1504ddff2ed40b6a
-Author: Daniel Bullock <dnbulloc@i9.red.uits.iu.edu>
-Date:   Wed Jan 9 16:54:04 2019 -0500
+commit 706eac5232e1bd95bb515e7a2f3941f124ce824a
+Author: Daniel Bullock <dnbulloc@i16.red.uits.iu.edu>
+Date:   Wed Jan 30 17:52:47 2019 -0500
 
-    more update of path
+    fixed issue with tract creation
 /N/u/brlife/git/encode
-commit c6d514a0af169c58fbc48b519879f84dd6f92f68
-Merge: 5ec160d 1e1e017
-Author: Franco Pestilli <frakkopesto@gmail.com>
-Date:   Fri Dec 14 09:35:22 2018 -0500
+commit 538a73bc4f8b4d94545bc2dfe434fec55e0c7a95
+Author: Soichi Hayashi <hayashis@iu.edu>
+Date:   Tue Jan 22 10:14:41 2019 -0500
 
-    Merge pull request #93 from soichih/master
-    
-    Added code to clip out-of-dwi fiber coordinates
+    fixed the issue where fiber goes missing.
