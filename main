@@ -24,4 +24,6 @@ fi
 echo "tracking"
 time singularity exec -e docker://brainlife/mrtrix_on_mcr:1.0 ./trackROI2ROI.sh
 
-time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/wma_formatForBrainLife
+time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/wma_formatForBrainLife_v2
+
+ln -s tracts classification/tracts
