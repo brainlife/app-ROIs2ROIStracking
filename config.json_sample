@@ -5,6 +5,7 @@
     "freesurfer": "../5c7835f1012ec90026779d07/5967bffa9b45c212bbec8958/output",
     "parc": "../5c7835f1012ec90026779d07/5c50c3f7ecd2f200ccfe9fb4/parc.nii.gz",
     "key": "../5c7835f1012ec90026779d07/5c50c3f7ecd2f200ccfe9fb4/key.txt",
+    "rois": "../5d2ca27978d9fa1cee2a3e5b/rois/rois",
     "maxlength": 250,
     "minlength": 25,
     "stepsize": 0.2,

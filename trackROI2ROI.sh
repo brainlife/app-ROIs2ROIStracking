@@ -74,14 +74,11 @@ if [ ! -f $WMMK ]; then
     mrconvert wm_anat.nii.gz $WMMK
 fi
 
-
-mkdir -p roi
+#roi is either passed in by rois in config.json or generated when parc is set through main
 RoiList=`ls roi/*.nii.gz`
 for ROI in $RoiList
-	do
-        if [ ! -f $ROI.mif ]; then
-		    mrconvert $ROI $ROI.mif
-        fi
+do
+    mrconvert $ROI $ROI.mif
 done
 
 ## create a t2-mask from b0
