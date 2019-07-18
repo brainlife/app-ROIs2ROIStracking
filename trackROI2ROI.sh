@@ -75,7 +75,7 @@ if [ ! -f $WMMK ]; then
 fi
 
 #roi is either passed in by rois in config.json or generated when parc is set through main
-RoiList=`ls roi/*.nii.gz`
+RoiList=`ls rois/*.nii.gz`
 for ROI in $RoiList
 do
     mrconvert $ROI $ROI.mif
@@ -211,7 +211,6 @@ done
 ./compiled/classificationNamesGenerator
 
 ################# CLEANUP #######################################
-rm -rf ./roi/
 rm -rf *.mif*
 rm -rf grad.b
 rm -rf *response*.txt
