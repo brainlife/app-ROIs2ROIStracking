@@ -164,7 +164,7 @@ done
 
 ################# ROI2ROI TRACKING ############################
 
-nTracts=$(ls roi/ROI*.mif | wc -l)
+nTracts=$(ls rois/ROI*.mif | wc -l)
 for (( i=0; i<=$nTracts; i+=2 )); do
     for i_track in $(seq $NUM_REPETITIONS); do
         echo ${i_track}
