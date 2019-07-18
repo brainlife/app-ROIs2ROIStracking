@@ -5,9 +5,9 @@
 This app will perform ensemble tracking between 2 or more cortical regions of interest (ROIs) from  atlas parcellation. First, the ROIs are registered to diffusion space using Freesurfer's mri_label2vol, and a white matter mask is generated in diffusion space, by running the create_wm_mask script. Then, tracking will be performed using mrtrix/0.2.12 by running the trackROI2ROI script. Finally, a classification structure will be generated using Vistasoft's bsc_mergeFGandClass and bsc_makeFGsFromClassification functions by running the classificationGenerator script.
 
 ### Authors
-- Dan Bullock (dnbulloc@iu.edu)
 - Brad Caron (bacaron@iu.edu)
 - Ilaria Sani (isani01@rockefeller.edu)
+- Dan Bullock (dnbulloc@iu.edu)
 
 ### Contributors
 - Soichi Hayashi (hayashi@iu.edu)
