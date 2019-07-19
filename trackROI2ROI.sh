@@ -60,25 +60,26 @@ MAXLMAX=`jq -r '.max_lmax' config.json`
 if [[ $MAXLMAX == "null" || -z $MAXLMAX ]]; then
     echo "max_lmax is empty... determining which lmax to use from .bvals"
     MAXLMAX=`./calculatelmax.py`
+    echo "using MAXLMAX:$MAXLMAX"
 fi
 
 if [ ! -f dwi.mif ]; then
-    mrconvert $input_nii_gz dwi.mif
+    mrconvert $input_nii_gz dwi.mif -quiet
 fi
 
 if [ ! -f b0.mif ]; then
-    mrconvert mask_anat.nii.gz b0.mif
+    mrconvert mask_anat.nii.gz b0.mif -quiet
 fi
 
 if [ ! -f $WMMK ]; then
-    mrconvert wm_anat.nii.gz $WMMK
+    mrconvert wm_anat.nii.gz $WMMK -quiet
 fi
 
 #roi is either passed in by rois in config.json or generated when parc is set through main
 RoiList=`ls rois/*.nii.gz`
 for ROI in $RoiList
 do
-    mrconvert $ROI $ROI.mif
+    mrconvert $ROI $ROI.mif -quiet
 done
 
 ## create a t2-mask from b0
