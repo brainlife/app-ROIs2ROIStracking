@@ -19,7 +19,7 @@ cat > build.m <<END
 addpath(genpath('/N/u/brlife/git/vistasoft'))
 addpath(genpath('/N/u/brlife/git/jsonlab'))
 addpath(genpath('/N/u/brlife/git/wma_tools'))
-mcc -m -R -nodisplay -d compiled bsc_GenROIfromPairStringList_BL
+mcc -m -R -nodisplay -d compiled bsc_GenROIfromPairStringList_v2_BL
 
 addpath(genpath('/N/u/brlife/git/spm12'))
 mcc -m -R -nodisplay -d compiled classificationNamesGenerator

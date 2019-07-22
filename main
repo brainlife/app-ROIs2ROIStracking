@@ -19,7 +19,7 @@ if [ $parc == "null" ]; then
     ln -s $rois rois #matlab won't be able to read from symlink.. if that's the case do cp -r $rois rois
 else
     echo "generate rois"
-    time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/bsc_GenROIfromPairStringList_BL
+    time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/bsc_GenROIfromPairStringList_v2_BL
 fi
 
 echo "tracking"

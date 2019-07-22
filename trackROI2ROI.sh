@@ -165,7 +165,13 @@ done
 
 ################# ROI2ROI TRACKING ############################
 
-nTracts=$(ls rois/ROI*.mif | wc -l)
+# convert text list
+ROIfilesString=`cat ROIfiles.txt`
+ROIfilesMIF="${ROIfilesString//.nii.gz/.mif}"   
+#on the assumption we are using bash 4
+ROISList=`readarray -t y <<<"$ROIfilesMIF"`
+
+nTracts=$(ls rois/*.mif | wc -l)
 for (( i=0; i<=$nTracts; i+=2 )); do
     for i_track in $(seq $NUM_REPETITIONS); do
         echo ${i_track}
@@ -181,9 +187,9 @@ for (( i=0; i<=$nTracts; i+=2 )); do
                     -step $STEPSIZE \
                     -minlength $MINLENGTH \
                     -length $MAXLENGTH \
-                    -seed ${ROI[$((i))]} \
-                    -include ${ROI[$((i))]} \
-                    -include ${ROI[$((i+1))]} \
+                    -seed ${ROISList[$((i))]} \
+                    -include ${ROISList[$((i))]} \
+                    -include ${ROISList[$((i+1))]} \
                     -stop
                 mv tmp.tck $out
             done
