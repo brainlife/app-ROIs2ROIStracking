@@ -76,10 +76,13 @@ if [ ! -f $WMMK ]; then
 fi
 
 #roi is either passed in by rois in config.json or generated when parc is set through main
-RoiList=`ls rois/*.nii.gz`
-for ROI in $RoiList
+ROIfilesString=`cat ROIfiles.txt`
+IFS='
+'
+ROISList=($ROIfilesString)
+for ROI in $ROISList
 do
-    mrconvert $ROI $ROI.mif -quiet
+    mrconvert ${ROI}.nii.gz ${ROI}.mif -quiet
 done
 
 ## create a t2-mask from b0
@@ -167,9 +170,9 @@ done
 
 # convert text list
 ROIfilesString=`cat ROIfiles.txt`
-ROIfilesMIF="${ROIfilesString//.nii.gz/.mif}"   
-#on the assumption we are using bash 4
-ROISList=`readarray -t y <<<"$ROIfilesMIF"`
+IFS='
+'
+ROISList=($ROIfilesString)
 
 nTracts=$(ls rois/*.mif | wc -l)
 for (( i=0; i<=$nTracts; i+=2 )); do
@@ -187,9 +190,9 @@ for (( i=0; i<=$nTracts; i+=2 )); do
                     -step $STEPSIZE \
                     -minlength $MINLENGTH \
                     -length $MAXLENGTH \
-                    -seed ${ROISList[$((i))]} \
-                    -include ${ROISList[$((i))]} \
-                    -include ${ROISList[$((i+1))]} \
+                    -seed ${ROISList[$((i))]}.mif \
+                    -include ${ROISList[$((i))]}.mif \
+                    -include ${ROISList[$((i+1))]}.mif \
                     -stop
                 mv tmp.tck $out
             done

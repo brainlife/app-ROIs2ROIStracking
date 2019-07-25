@@ -15,11 +15,11 @@ Date:   Wed Sep 6 13:01:57 2017 -0400
     
     added package.json to be able to intall via npm package manager
 /N/u/brlife/git/wma_tools
-commit 563dde6ad57758345ec11309e59c95b3ee6e2103
+commit 76803533d27e026601e030424b5d06256fcd868b
 Author: Daniel Bullock <dnbulloc@iu.edu>
-Date:   Sun Jul 21 14:16:08 2019 -0400
+Date:   Thu Jul 25 16:28:15 2019 -0400
 
-    massive update after corrupted local repo
+    removed .nii.gz from text file output
 /N/u/brlife/git/encode
 commit 538a73bc4f8b4d94545bc2dfe434fec55e0c7a95
 Author: Soichi Hayashi <hayashis@iu.edu>

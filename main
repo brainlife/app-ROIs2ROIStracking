@@ -17,10 +17,9 @@ if [ $parc == "null" ]; then
     echo "parc not set.. which means rois should be fed as input.. symlinking"
     rois=$(jq -r .rois config.json)
     ln -s $rois rois #matlab won't be able to read from symlink.. if that's the case do cp -r $rois rois
-else
-    echo "generate rois"
-    time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/bsc_GenROIfromPairStringList_v2_BL
 fi
+echo "generate rois"
+time singularity exec -e docker://brainlife/mcr:neurodebian1604-r2017a ./compiled/bsc_GenROIfromPairStringList_v2_BL
 
 echo "tracking"
 time singularity exec -e docker://brainlife/mrtrix_on_mcr:1.0 ./trackROI2ROI.sh
