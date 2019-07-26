@@ -76,14 +76,10 @@ if [ ! -f $WMMK ]; then
 fi
 
 #roi is either passed in by rois in config.json or generated when parc is set through main
-ROIfilesString=`cat ROIfiles.txt`
-IFS='
-'
-ROISList=($ROIfilesString)
-for ROI in $ROISList
+for ROI in $(cat ROIfiles.txt)
 do
-    mrconvert ${ROI}.nii.gz ${ROI}.mif -quiet
-done
+   mrconvert ${ROI}.nii.gz ${ROI}.mif -quiet
+done 
 
 ## create a t2-mask from b0
 if [ -f mask.mif ]; then
@@ -170,13 +166,14 @@ done
 
 # convert text list
 ROIfilesString=`cat ROIfiles.txt`
+SAVEIFS=$IFS
 IFS='
 '
 ROISList=($ROIfilesString)
 
 nTracts=$(ls rois/*.mif | wc -l)
 for (( i=0; i<=$nTracts; i+=2 )); do
-    for i_track in $(seq $NUM_REPETITIONS); do
+    for i_tratk in $(seq $NUM_REPETITIONS); do
         echo ${i_track}
         for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 )); do
             for curv in 0.5 1 2 3 4; do
@@ -200,7 +197,7 @@ for (( i=0; i<=$nTracts; i+=2 )); do
      done
     ## concatenate tracts
 
-    prefix=track$((i/2+1))
+    prefix=tract$((i/2+1))
     echo prefix
     paramSweepTracks=$(ls *${prefix}*.tck )
     echo paramSweepTracks
@@ -210,13 +207,13 @@ for (( i=0; i<=$nTracts; i+=2 )); do
     fi
     rm -rf ${holder[*]}
     ## tract info
-    track_info track$((i/2+1)).tck > track_info$((i/2+1)).txt
+    track_info tract$((i/2+1)).tck > track_info$((i/2+1)).txt
     if [[ $((i/2+1)) == 1 ]];then
         mv track_info$((i/2+1)).txt track_info.txt
     fi
     
 done
-
+IFS=$SAVEIFS
 ################# CREATE CLASSIFICATION STRUCTURE ###############
 ./compiled/classificationNamesGenerator
 
