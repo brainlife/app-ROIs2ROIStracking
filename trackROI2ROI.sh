@@ -173,7 +173,7 @@ ROISList=($ROIfilesString)
 
 nTracts=$(ls rois/*.mif | wc -l)
 for (( i=0; i<=$nTracts; i+=2 )); do
-    for i_tratk in $(seq $NUM_REPETITIONS); do
+    for i_track in $(seq $NUM_REPETITIONS); do
         echo ${i_track}
         for (( i_lmax=2; i_lmax<=$MAXLMAX; i_lmax+=2 )); do
             for curv in 0.5 1 2 3 4; do
